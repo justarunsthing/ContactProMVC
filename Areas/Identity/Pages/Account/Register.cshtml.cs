@@ -169,7 +169,11 @@ namespace ContactProMVC.Areas.Identity.Pages.Account
         {
             try
             {
-                return Activator.CreateInstance<AppUser>();
+                var user =  Activator.CreateInstance<AppUser>();
+                user.FirstName = Input.FirstName;
+                user.LastName = Input.LastName;
+
+                return user;
             }
             catch
             {
