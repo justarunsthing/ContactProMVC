@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using ContactProMVC.Data;
+﻿using ContactProMVC.Data;
 using ContactProMVC.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ContactProMVC.Controllers
 {
@@ -20,6 +17,7 @@ namespace ContactProMVC.Controllers
         }
 
         // GET: Contacts
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Contacts.Include(c => c.AppUser);
@@ -27,6 +25,7 @@ namespace ContactProMVC.Controllers
         }
 
         // GET: Contacts/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,6 +45,7 @@ namespace ContactProMVC.Controllers
         }
 
         // GET: Contacts/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["AppUserId"] = new SelectList(_context.Users, "Id", "Id");
@@ -70,6 +70,7 @@ namespace ContactProMVC.Controllers
         }
 
         // GET: Contacts/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -123,6 +124,7 @@ namespace ContactProMVC.Controllers
         }
 
         // GET: Contacts/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
