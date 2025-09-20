@@ -4,16 +4,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace ContactProMVC.Controllers
 {
     public class ContactsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<AppUser> _userManager;
 
-        public ContactsController(ApplicationDbContext context)
+        public ContactsController(ApplicationDbContext context, UserManager<AppUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Contacts
@@ -64,6 +67,14 @@ namespace ContactProMVC.Controllers
 
             if (ModelState.IsValid)
             {
+                contact.AppUserId = _userManager.GetUserId(User);
+                contact.Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
+
+                if (contact.BirthDate != null)
+                {
+                    contact.BirthDate = DateTime.SpecifyKind(contact.BirthDate.Value, DateTimeKind.Utc);
+                }
+
                 _context.Add(contact);
                 await _context.SaveChangesAsync();
 
