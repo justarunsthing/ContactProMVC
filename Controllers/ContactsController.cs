@@ -80,7 +80,9 @@ namespace ContactProMVC.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["AppUserId"] = new SelectList(_context.Users, "Id", "Id", contact.AppUserId);
+
             return View(contact);
         }
 
