@@ -11,11 +11,11 @@
         <div class="row g-3 p-2">
             <div class="col-12 col-lg-4">
                 <div class="square-img-container">
-                    <img id="contactImage" class="square-img" src="/img/DefaultContactImage.png"
-                         onchange="document.getElementById('contactImage').src = window.URL.createObjectURL(this.files[0])" />
+                    <img id="contactImage" class="square-img" src="/img/DefaultContactImage.png" />
                 </div>
                 <div class="mt-2">
-                    <input asp-for="ImageFile" type="file" class="form-control" accept=".png,.jpg,.jpeg,.gif" />
+                    <input asp-for="ImageFile" type="file" class="form-control" accept=".png,.jpg,.jpeg,.gif"
+                           onchange="document.getElementById('contactImage').src=window.URL.createObjectURL(this.files[0])" />
                     <span asp-validation-for="ImageFile" class="text-danger"></span>
                 </div>
             </div>
