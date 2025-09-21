@@ -19,6 +19,7 @@ builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireCo
 builder.Services.AddControllersWithViews();
 
 // Custom services
+// Scoped creates new instance everytime
 builder.Services.AddScoped<IImageService, ImageService>();
 
 var app = builder.Build();
