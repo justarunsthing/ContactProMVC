@@ -26,9 +26,20 @@ namespace ContactProMVC.Services
             }
         }
 
-        public Task<byte[]> ConvertFileToByteArrayAsync(IFormFile file)
+        public async Task<byte[]> ConvertFileToByteArrayAsync(IFormFile file)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using MemoryStream ms = new();
+                await file.CopyToAsync(ms);
+                byte[] byteFile = ms.ToArray();
+
+                return byteFile;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }
