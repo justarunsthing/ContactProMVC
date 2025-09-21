@@ -1,6 +1,7 @@
 using ContactProMVC.Data;
+using ContactProMVC.Interaces;
 using ContactProMVC.Models;
-using Microsoft.AspNetCore.Identity;
+using ContactProMVC.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+// Custom services
+builder.Services.AddScoped<IImageService, ImageService>();
 
 var app = builder.Build();
 
