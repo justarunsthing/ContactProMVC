@@ -78,6 +78,12 @@ namespace ContactProMVC.Controllers
                     contact.BirthDate = DateTime.SpecifyKind(contact.BirthDate.Value, DateTimeKind.Utc);
                 }
 
+                if (contact.ImageFile != null)
+                {
+                    contact.ImageData = await _imageService.ConvertFileToByteArrayAsync(contact.ImageFile);
+                    contact.ImageType = contact.ImageFile.ContentType;
+                }
+
                 _context.Add(contact);
                 await _context.SaveChangesAsync();
 
