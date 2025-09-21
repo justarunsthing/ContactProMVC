@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using ContactProMVC.Interaces;
 
 namespace ContactProMVC.Controllers
 {
@@ -12,11 +13,13 @@ namespace ContactProMVC.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IImageService _imageService;
 
-        public ContactsController(ApplicationDbContext context, UserManager<AppUser> userManager)
+        public ContactsController(ApplicationDbContext context, UserManager<AppUser> userManager, IImageService imageService)
         {
             _context = context;
             _userManager = userManager;
+            _imageService = imageService;
         }
 
         // GET: Contacts
