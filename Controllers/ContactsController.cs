@@ -1,11 +1,11 @@
 ﻿using ContactProMVC.Data;
 using ContactProMVC.Models;
-using Microsoft.AspNetCore.Mvc;
+using ContactProMVC.Interaces;
+    using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using ContactProMVC.Interaces;
 
 namespace ContactProMVC.Controllers
 {
@@ -14,12 +14,18 @@ namespace ContactProMVC.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<AppUser> _userManager;
         private readonly IImageService _imageService;
+        private readonly IAddressBookService _addressBookService;
 
-        public ContactsController(ApplicationDbContext context, UserManager<AppUser> userManager, IImageService imageService)
+        public ContactsController(
+            ApplicationDbContext context, 
+            UserManager<AppUser> userManager, 
+            IImageService imageService,
+            IAddressBookService addressBookService)
         {
             _context = context;
             _userManager = userManager;
             _imageService = imageService;
+            _addressBookService = addressBookService;
         }
 
         // GET: Contacts
