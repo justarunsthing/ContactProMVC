@@ -1,6 +1,7 @@
 ﻿using ContactProMVC.Models;
 using ContactProMVC.Interaces;
 using ContactProMVC.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContactProMVC.Services
 {
@@ -28,9 +29,22 @@ namespace ContactProMVC.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Category>> GetUserCategoriesAsync(string userId)
+        public async Task<IEnumerable<Category>> GetUserCategoriesAsync(string userId)
         {
-            throw new NotImplementedException();
+            var categories = new List<Category>();
+
+            try
+            {
+                categories = await _context.Categories.Where(c => c.AppUserId == userId)
+                                                      .OrderBy(c => c.Name)
+                                                      .ToListAsync();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return categories;
         }
 
         public Task<bool> IsContactOnCategoryAsync(int categoryId, int contactId)
