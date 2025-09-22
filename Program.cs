@@ -21,6 +21,7 @@ builder.Services.AddControllersWithViews();
 // Custom services
 // Scoped creates new instance everytime
 builder.Services.AddScoped<IImageService, ImageService>();
+builder.Services.AddScoped<IAddressBookService, AddressBookService>();
 
 var app = builder.Build();
 
