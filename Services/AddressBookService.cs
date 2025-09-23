@@ -47,9 +47,13 @@ namespace ContactProMVC.Services
             return categories;
         }
 
-        public Task<bool> IsContactOnCategoryAsync(int categoryId, int contactId)
+        public async Task<bool> IsContactOnCategoryAsync(int categoryId, int contactId)
         {
-            throw new NotImplementedException();
+            Contact? contact = await _context.Contacts.FindAsync(contactId);
+
+            return await _context.Categories.Include(c => c.Contacts)
+                                            .Where(c => c.Id == categoryId && c.Contacts.Contains(contact))
+                                            .AnyAsync();
         }
 
         public Task RemoveContactFromCategoryAsync(int categoryId, int contactId)
