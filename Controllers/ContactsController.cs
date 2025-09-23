@@ -95,6 +95,9 @@ namespace ContactProMVC.Controllers
                 _context.Add(contact);
                 await _context.SaveChangesAsync();
 
+                // loop over all of the selected categories
+                // save each category to the contactcategories table
+
                 return RedirectToAction(nameof(Index));
             }
 
