@@ -14,9 +14,26 @@ namespace ContactProMVC.Services
             _context = context;
         }
 
-        public Task AddContactToCategoryAsync(int categoryId, int contactId)
+        public async Task AddContactToCategoryAsync(int categoryId, int contactId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (!await IsContactOnCategoryAsync(categoryId, contactId))
+                {
+                    Contact? contact = await _context.Contacts.FindAsync(contactId);
+                    Category? category = await _context.Categories.FindAsync(categoryId);
+
+                    if (contact != null && category != null)
+                    {
+                        category.Contacts.Add(contact);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public Task<ICollection<Category>> GetContactCategoriesAsync(int contactId)
