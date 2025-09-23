@@ -72,7 +72,7 @@ namespace ContactProMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,BirthDate,Address1,Address2,City,PostCode,Email,PhoneNumber,ImageFile")] Contact contact)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,BirthDate,Address1,Address2,City,PostCode,Email,PhoneNumber,ImageFile")] Contact contact, List<int> categoryList)
         {
             ModelState.Remove("AppUserId");
 
@@ -95,8 +95,10 @@ namespace ContactProMVC.Controllers
                 _context.Add(contact);
                 await _context.SaveChangesAsync();
 
-                // loop over all of the selected categories
-                // save each category to the contactcategories table
+                foreach (var categoryId in categoryList)
+                {
+                    await _addressBookService.AddContactToCategoryAsync(categoryId, contact.Id);
+                }
 
                 return RedirectToAction(nameof(Index));
             }
