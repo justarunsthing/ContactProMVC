@@ -32,8 +32,18 @@ namespace ContactProMVC.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Contacts.Include(c => c.AppUser);
-            return View(await applicationDbContext.ToListAsync());
+            var contacts = new List<Contact>();
+            var appUserId = _userManager.GetUserId(User);
+            var appUser = _context.Users
+                                  .Include(c => c.Contacts)
+                                  .ThenInclude(c => c.Categories)
+                                  .FirstOrDefault(u => u.Id == appUserId);
+            var catgories = appUser.Categories;
+            contacts = appUser.Contacts.OrderBy(c => c.LastName).ThenBy(c => c.FirstName).ToList();
+
+            ViewData["CategoryId"] = new SelectList(catgories, "Id", "Name");
+
+            return View(contacts);
         }
 
         // GET: Contacts/Details/5
