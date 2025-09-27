@@ -53,7 +53,7 @@ namespace ContactProMVC.Controllers
                                   .ToList();
             }
 
-            ViewData["CategoryId"] = new SelectList(catgories, "Id", "Name");
+            ViewData["CategoryId"] = new SelectList(catgories, "Id", "Name", categoryId);
 
             return View(contacts);
         }
