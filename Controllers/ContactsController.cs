@@ -30,7 +30,7 @@ namespace ContactProMVC.Controllers
 
         // GET: Contacts
         [Authorize]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var contacts = new List<Contact>();
             var appUserId = _userManager.GetUserId(User);
