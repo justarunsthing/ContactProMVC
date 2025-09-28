@@ -60,7 +60,7 @@ namespace ContactProMVC.Controllers
         }
 
         [Authorize]
-        public IActionResult SearchContact(string searchString)
+        public IActionResult SearchContacts(string searchString)
         {
             var appUserId = _userManager.GetUserId(User);
             var contacts = new List<Contact>();
