@@ -1,4 +1,5 @@
-﻿using ContactProMVC.Data;
+﻿
+using ContactProMVC.Data;
 using ContactProMVC.Models;
 using ContactProMVC.Interaces;
 using Microsoft.AspNetCore.Mvc;
@@ -53,9 +54,37 @@ namespace ContactProMVC.Controllers
                                   .ToList();
             }
 
-            ViewData["CategoryId"] = new SelectList(catgories, "Id", "Name", categoryId);
+            ViewData["CategoryId"] = new SelectList(catgories, dataValueField: "Id", "Name", categoryId);
 
             return View(contacts);
+        }
+
+        [Authorize]
+        public IActionResult SearchContact(string searchString)
+        {
+            var appUserId = _userManager.GetUserId(User);
+            var contacts = new List<Contact>();
+
+            AppUser appUser = _context.Users
+                                  .Include(c => c.Contacts)
+                                  .ThenInclude(c => c.Categories)
+                                  .FirstOrDefault(u => u.Id == appUserId);
+
+            if (string.IsNullOrEmpty(searchString))
+            {
+                contacts = appUser.Contacts.OrderBy(c => c.LastName).ThenBy(c => c.FirstName).ToList();
+            }
+            else
+            {
+                contacts = appUser.Contacts.Where(c => c.FirstName.ToLower().Contains(searchString.ToLower()))
+                                           .OrderBy(c => c.LastName)
+                                           .ThenBy(c => c.FirstName)
+                                           .ToList();
+            }
+
+            ViewData["CategoryId"] = new SelectList(appUser.Categories, "Id", "Name", 0);
+
+            return View(nameof(Index), contacts);
         }
 
         // GET: Contacts/Details/5
