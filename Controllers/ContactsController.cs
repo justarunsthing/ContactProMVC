@@ -168,12 +168,17 @@ namespace ContactProMVC.Controllers
                 return NotFound();
             }
 
-            var contact = await _context.Contacts.FindAsync(id);
+            var appUserId = _userManager.GetUserId(User);
+            var contact = await _context.Contacts.Where(c => c.Id == id && c.AppUserId == appUserId)
+                                                 .FirstOrDefaultAsync();
+
             if (contact == null)
             {
                 return NotFound();
             }
+
             ViewData["AppUserId"] = new SelectList(_context.Users, "Id", "Id", contact.AppUserId);
+            
             return View(contact);
         }
 
