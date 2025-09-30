@@ -178,7 +178,8 @@ namespace ContactProMVC.Controllers
             }
 
             ViewData["AppUserId"] = new SelectList(_context.Users, "Id", "Id", contact.AppUserId);
-            
+            ViewData["CategoryList"] = new MultiSelectList(await _addressBookService.GetUserCategoriesAsync(appUserId), "Id", "Name", await _addressBookService.GetContactCategoriesIdsAsync(contact.Id));
+
             return View(contact);
         }
 
