@@ -41,9 +41,22 @@ namespace ContactProMVC.Services
             throw new NotImplementedException();
         }
 
-        public Task<ICollection<int>> GetContactCategoriesIdsAsync(int contactId)
+        public async Task<ICollection<int>> GetContactCategoriesIdsAsync(int contactId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var contact = await _context.Contacts
+                                            .Include(c => c.Categories)
+                                            .FirstOrDefaultAsync(c => c.Id == contactId);
+
+                List<int> categoryIds = contact.Categories.Select(c => c.Id).ToList();
+
+                return categoryIds;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public async Task<IEnumerable<Category>> GetUserCategoriesAsync(string userId)
