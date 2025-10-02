@@ -97,9 +97,26 @@ namespace ContactProMVC.Services
                                             .AnyAsync();
         }
 
-        public Task RemoveContactFromCategoryAsync(int categoryId, int contactId)
+        public async Task RemoveContactFromCategoryAsync(int categoryId, int contactId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (await IsContactOnCategoryAsync(categoryId, contactId))
+                {
+                    Contact contact = await _context.Contacts.FindAsync(contactId);
+                    Category category = await _context.Categories.FindAsync(categoryId);
+
+                    if (contact != null && category != null)
+                    {
+                        category.Contacts.Remove(contact);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public IEnumerable<Contact> SearchContacts(string searchString, string userId)
