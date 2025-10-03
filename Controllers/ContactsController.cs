@@ -283,6 +283,12 @@ namespace ContactProMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize]
+        public IActionResult EmailContact(int contactId)
+        {
+            return View();
+        }
+
         private bool ContactExists(int id)
         {
             return _context.Contacts.Any(e => e.Id == id);
