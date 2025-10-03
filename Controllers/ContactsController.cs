@@ -1,5 +1,4 @@
-﻿
-using ContactProMVC.Data;
+﻿using ContactProMVC.Data;
 using ContactProMVC.Models;
 using ContactProMVC.Interaces;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
+using System.Threading.Tasks;
+using ContactProMVC.ViewModels;
 
 namespace ContactProMVC.Controllers
 {
@@ -284,9 +285,32 @@ namespace ContactProMVC.Controllers
         }
 
         [Authorize]
-        public IActionResult EmailContact(int contactId)
+        public async Task<IActionResult> EmailContact(int contactId)
         {
-            return View();
+            var appUserId = _userManager.GetUserId(User);
+            var contact = await _context.Contacts
+                                        .Where(c => c.Id == contactId && c.AppUserId == appUserId)
+                                        .FirstOrDefaultAsync();
+
+            if (contact == null)
+            {
+                return NotFound();
+            }
+
+            var emailData = new EmailData()
+            {
+                EmailAddress = contact.Email,
+                FirstName = contact.FirstName,
+                LastName = contact.LastName
+            };
+
+            var model = new EmailContactViewModel()
+            {
+                Contact = contact,
+                EmailData = emailData
+            };
+
+            return View(model);
         }
 
         private bool ContactExists(int id)
