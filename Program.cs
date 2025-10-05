@@ -1,8 +1,9 @@
 using ContactProMVC.Data;
-using ContactProMVC.Interaces;
 using ContactProMVC.Models;
 using ContactProMVC.Services;
+using ContactProMVC.Interaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,7 @@ builder.Services.AddControllersWithViews();
 // Scoped creates new instance everytime
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IAddressBookService, AddressBookService>();
+builder.Services.AddScoped<IEmailSender, EmailService>();
 
 var app = builder.Build();
 
