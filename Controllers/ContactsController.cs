@@ -6,8 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
-using System.Threading.Tasks;
-using ContactProMVC.ViewModels;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace ContactProMVC.Controllers
 {
@@ -17,17 +16,20 @@ namespace ContactProMVC.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly IImageService _imageService;
         private readonly IAddressBookService _addressBookService;
+        private readonly IEmailSender _emailSender;
 
         public ContactsController(
             ApplicationDbContext context, 
             UserManager<AppUser> userManager, 
             IImageService imageService,
-            IAddressBookService addressBookService)
+            IAddressBookService addressBookService,
+            IEmailSender emailSender)
         {
             _context = context;
             _userManager = userManager;
             _imageService = imageService;
             _addressBookService = addressBookService;
+            _emailSender = emailSender;
         }
 
         // GET: Contacts
