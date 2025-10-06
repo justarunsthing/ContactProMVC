@@ -326,7 +326,7 @@ namespace ContactProMVC.Controllers
                 {
                     await _emailSender.SendEmailAsync(model.EmailData.EmailAddress, model.EmailData.Subject, model.EmailData.Body);
 
-                    RedirectToAction(nameof(Index), "Contacts");
+                    return RedirectToAction(nameof(Index), "Contacts");
                 }
                 catch (Exception)
                 {
