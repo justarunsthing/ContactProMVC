@@ -2,6 +2,7 @@
 using ContactProMVC.Models;
 using ContactProMVC.Interaces;
 using Microsoft.AspNetCore.Mvc;
+using ContactProMVC.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -311,6 +312,27 @@ namespace ContactProMVC.Controllers
                 Contact = contact,
                 EmailData = emailData
             };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> EmailContact(EmailContactViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _emailSender.SendEmailAsync(model.EmailData.EmailAddress, model.EmailData.Subject, model.EmailData.Body);
+
+                    RedirectToAction(nameof(Index), "Contacts");
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
 
             return View(model);
         }
