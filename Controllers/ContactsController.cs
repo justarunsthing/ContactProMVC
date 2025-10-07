@@ -326,10 +326,11 @@ namespace ContactProMVC.Controllers
                 {
                     await _emailSender.SendEmailAsync(model.EmailData.EmailAddress, model.EmailData.Subject, model.EmailData.Body);
 
-                    return RedirectToAction(nameof(Index), "Contacts");
+                    return RedirectToAction(nameof(Index), "Contacts", new { swalMessage = "Success: Email Sent!" });
                 }
                 catch (Exception)
                 {
+                    return RedirectToAction(nameof(Index), "Contacts", new { swalMessage = "Error: Failed to send email!" });
                     throw;
                 }
             }
