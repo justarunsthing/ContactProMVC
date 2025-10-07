@@ -35,7 +35,7 @@ namespace ContactProMVC.Controllers
 
         // GET: Contacts
         [Authorize]
-        public IActionResult Index(int categoryId)
+        public IActionResult Index(int categoryId, string swalMessage = null)
         {
             var contacts = new List<Contact>();
             var appUserId = _userManager.GetUserId(User);
@@ -59,6 +59,7 @@ namespace ContactProMVC.Controllers
             }
 
             ViewData["CategoryId"] = new SelectList(catgories, dataValueField: "Id", "Name", categoryId);
+            ViewData["SwalMessage"] = swalMessage;
 
             return View(contacts);
         }
