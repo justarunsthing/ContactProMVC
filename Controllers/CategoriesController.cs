@@ -23,8 +23,13 @@ namespace ContactProMVC.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Categories.Include(c => c.AppUser);
-            return View(await applicationDbContext.ToListAsync());
+            var appUserId = _userManager.GetUserId(User);
+            var categories = await _context.Categories
+                                     .Where(c => c.AppUserId == appUserId)
+                                     .Include(c => c.AppUser)
+                                     .ToListAsync();
+
+            return View(categories);
         }
 
         // GET: Categories/Details/5
