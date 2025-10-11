@@ -86,12 +86,17 @@ namespace ContactProMVC.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categories.FindAsync(id);
+            var appUserId = _userManager.GetUserId(User);
+            var category = await _context.Categories.Where(c => c.Id == id && c.AppUserId == appUserId)
+                                                    .FirstOrDefaultAsync();
+
             if (category == null)
             {
                 return NotFound();
             }
+
             ViewData["AppUserId"] = new SelectList(_context.Users, "Id", "Id", category.AppUserId);
+            
             return View(category);
         }
 
