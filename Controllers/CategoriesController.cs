@@ -116,6 +116,9 @@ namespace ContactProMVC.Controllers
             {
                 try
                 {
+                    var appUserId = _userManager.GetUserId(User);
+                    category.AppUserId = appUserId;
+
                     _context.Update(category);
                     await _context.SaveChangesAsync();
                 }
@@ -130,9 +133,10 @@ namespace ContactProMVC.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AppUserId"] = new SelectList(_context.Users, "Id", "Id", category.AppUserId);
+            
             return View(category);
         }
 
