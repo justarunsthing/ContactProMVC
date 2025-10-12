@@ -56,7 +56,6 @@ namespace ContactProMVC.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            ViewData["AppUserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
