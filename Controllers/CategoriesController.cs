@@ -32,6 +32,12 @@ namespace ContactProMVC.Controllers
             return View(categories);
         }
 
+        [Authorize]
+        public async Task<IActionResult> EmailCategory(int id)
+        {
+            return View();
+        }
+
         // GET: Categories/Details/5
         [Authorize]
         public async Task<IActionResult> Details(int? id)
