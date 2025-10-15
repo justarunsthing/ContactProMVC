@@ -1,11 +1,12 @@
 ﻿using ContactProMVC.Data;
 using ContactProMVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using ContactProMVC.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
-using ContactProMVC.ViewModels;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace ContactProMVC.Controllers
 {
@@ -13,11 +14,13 @@ namespace ContactProMVC.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IEmailSender _emailSender;
 
-        public CategoriesController(ApplicationDbContext context, UserManager<AppUser> userManager)
+        public CategoriesController(ApplicationDbContext context, UserManager<AppUser> userManager, IEmailSender emailSender)
         {
             _context = context;
             _userManager = userManager;
+            _emailSender = emailSender;
         }
 
         // GET: Categories
