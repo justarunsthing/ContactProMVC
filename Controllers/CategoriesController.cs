@@ -62,6 +62,28 @@ namespace ContactProMVC.Controllers
             return View(model);
         }
 
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> EmailCategory(EmailCategoryViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _emailSender.SendEmailAsync(model.EmailData.EmailAddress, model.EmailData.Subject, model.EmailData.Body);
+
+                    return RedirectToAction(nameof(Index), "Categories", new { swalMessage = "Success: Email Sent!" });
+                }
+                catch (Exception)
+                {
+                    return RedirectToAction(nameof(Index), "Categories", new { swalMessage = "Error: Failed to send email!" });
+                    throw;
+                }
+            }
+
+            return View(model);
+        }
+
         // GET: Categories/Details/5
         [Authorize]
         public async Task<IActionResult> Details(int? id)
