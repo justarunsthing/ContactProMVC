@@ -25,8 +25,10 @@ namespace ContactProMVC.Controllers
 
         // GET: Categories
         [Authorize]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string swalMessage = null)
         {
+            ViewData["SwalMessage"] = swalMessage;
+
             var appUserId = _userManager.GetUserId(User);
             var categories = await _context.Categories
                                      .Where(c => c.AppUserId == appUserId)
