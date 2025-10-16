@@ -34,7 +34,7 @@ namespace ContactProMVC.Controllers
                     : "Sorry, something went wrong."
             };
 
-            return View(customError);
+            return View("~/Views/Shared/CustomError.cshtml", customError);
         }
 
 
