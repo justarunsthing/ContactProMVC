@@ -208,9 +208,10 @@ namespace ContactProMVC.Controllers
                 return NotFound();
             }
 
+            var appUserId = _userManager.GetUserId(User);
             var category = await _context.Categories
-                .Include(c => c.AppUser)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                                         .FirstOrDefaultAsync(c => c.Id == id && c.AppUserId == appUserId);
+
             if (category == null)
             {
                 return NotFound();
