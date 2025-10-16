@@ -23,6 +23,21 @@ namespace ContactProMVC.Controllers
             return View();
         }
 
+        [Route("/Home/HandleError/{code:int}")]
+        public IActionResult HandleError(int code)
+        {
+            var customError = new CustomError
+            {
+                Code = code,
+                Message = code == 404
+                    ? "The page you are looking for might have been removed or had its name changed or is temporarily unavailable"
+                    : "Sorry, something went wrong."
+            };
+
+            return View(customError);
+        }
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
