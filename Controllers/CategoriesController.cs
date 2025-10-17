@@ -86,26 +86,6 @@ namespace ContactProMVC.Controllers
             return View(model);
         }
 
-        // GET: Categories/Details/5
-        [Authorize]
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var category = await _context.Categories
-                .Include(c => c.AppUser)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            return View(category);
-        }
-
         // GET: Categories/Create
         [Authorize]
         public IActionResult Create()
