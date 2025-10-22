@@ -9,7 +9,7 @@ namespace ContactProMVC.Helpers
             var connectionString = configuration.GetSection("pgSettings")["pgConnection"];
             var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 
-            return string.IsNullOrEmpty(databaseUrl) ? connectionString : databaseUrl;
+            return string.IsNullOrEmpty(databaseUrl) ? connectionString : BuildConnectionString(databaseUrl);
         }
 
         private static string BuildConnectionString(string databaseUrl)
