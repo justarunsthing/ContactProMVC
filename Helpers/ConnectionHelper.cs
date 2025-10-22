@@ -4,7 +4,9 @@
     {
         public static string GetConnectionString(IConfiguration configuration)
         {
-            return "";
+            var connectionString = configuration.GetSection("pgSettings")["pgConnection"];
+
+            return connectionString;
         }
     }
 }
