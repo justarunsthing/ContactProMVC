@@ -18,7 +18,7 @@ namespace ContactProMVC.Services
 
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            var sender = _mailSettings.Email;
+            var sender = _mailSettings.Email ?? Environment.GetEnvironmentVariable("Email");
             var mail = new MimeMessage
             {
                 Sender = MailboxAddress.Parse(sender),
