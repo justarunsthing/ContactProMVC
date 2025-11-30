@@ -32,26 +32,26 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-md navbar-light fixed-top border-bottom border-light navShadow">
+        <nav class="navbar navbar-expand-md navbar-light fixed-top border-bottom border-light navShadow theme-color">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="/img/ContactPro.png" height=45></a>
+                <a class="navbar-brand" disabled><img src="/img/app-home-logo.svg" alt="App Home Logo" height=24 /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                         aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon" style="background-color: #fff0d9;"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-white" aria-current="page" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
 
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Contacts" asp-action="Index">Contacts</a>
+                                <a class="nav-link text-white" asp-controller="Contacts" asp-action="Index">Contacts</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
+                                <a class="nav-link text-white" asp-controller="Categories" asp-action="Index">Categories</a>
                             </li>
                         }
                     </ul>
@@ -69,11 +69,11 @@
         <div class="row align-items-center py-2">
             <div class="col">
                 <div class="row align-items-center gy-2">
-                    <div class="col d-flex justify-content-center justify-content-md-start order-last order-md-first copyright">
+                    <div class="col d-flex justify-content-center justify-content-md-start order-last order-md-first text-light">
                         &copy; @(DateTime.Now.Year) Arun Pun All Rights Reserved
                     </div>
                     <div class="col d-flex justify-content-center">
-                        <img src="/img/ContactPro.png" height="50">
+                        <img src="/img/arunpun-logo.svg" alt="Arun Pun Logo" height="24" />
                     </div>
                     <div class="col-12 col-md d-flex justify-content-center justify-content-md-end">
 @*                         <a href="#" class="socialicons"><i class="bi bi-linkedin p-2 "></i></a>
