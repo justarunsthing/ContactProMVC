@@ -15,7 +15,7 @@
     </div>
 </div>
 <div class="row g-2">
-    <div class="col-12 col-md-4 sideNav">
+    <div class="col-12 col-md-4 side-nav">
         <form asp-action="SearchContacts" asp-controller="Contacts">
             <div class="input-group">
                 <input class="form-control" type="search" name="searchString"
@@ -60,9 +60,9 @@
                                         <span class="fw-bold me-2">Email:</span>@Html.DisplayFor(modelItem => contact.Email)
                                     </div>
                                     <div class="fs-4">
-                                        <a class="me-3 editIcons" asp-action="Edit" asp-route-id="@contact.Id"><i class="bi bi-pencil-fill"></i></a>
-                                        <a class="me-3 editIcons" asp-action="EmailContact" asp-route-contactId="@contact.Id"><i class="bi bi-envelope-fill"></i></a>
-                                        <a class="me-3 editIcons" asp-action="Delete" asp-route-id="@contact.Id"><i class="bi bi-trash-fill text-danger"></i></a>
+                                        <a class="me-3 edit-icons" asp-action="Edit" asp-route-id="@contact.Id"><i class="bi bi-pencil-fill"></i></a>
+                                        <a class="me-3 edit-icons" asp-action="EmailContact" asp-route-contactId="@contact.Id"><i class="bi bi-envelope-fill"></i></a>
+                                        <a class="me-3 edit-icons" asp-action="Delete" asp-route-id="@contact.Id"><i class="bi bi-trash-fill text-danger"></i></a>
                                     </div>
                                 </div>
                             </div>

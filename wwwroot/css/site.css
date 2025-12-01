@@ -42,12 +42,12 @@ body {
     background-color: var(--secondary-color-light) !important;
 }
 
-.btnlinks {
+.btn-links {
     width: 7rem;
     opacity: .9;
 }
 
-    .btnlinks:hover {
+    .btn-links:hover {
         background-color: var(--secondary-color-light);
         opacity: 1;
     }
@@ -78,44 +78,26 @@ main {
     padding-bottom: 2.5rem;
 }
 
-.heroCard {
-    min-height: 100%;
-}
-
-.texthighlight {
+.text-highlight {
     color: var(--secondary-color-light);
 }
 
-.heroTitle {
+.hero-title {
     font-size: 3rem;
     text-transform: uppercase;
     font-family: var(--title-font);
     font-weight: 600;
 }
 
-.subtitle {
+.sub-title {
     font-size: 1.5rem;
 }
 
-.pageHeader {
-    background-color: var(--secondary-color);
-    padding-top: 7.5rem;
-    padding-bottom: 2.5rem;
-}
-
-.pageTitle {
-    font-family: var(--title-font);
-    font-weight: 500;
-    font-size: 3rem;
-    line-height: 3rem;
-    text-transform: capitalize;
-}
-
-.navShadow {
+.nav-shadow {
     box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-.sideNav {
+.side-nav {
     border-radius: 25px;
     border-color: var(--light-color);
     border-style: solid;
@@ -128,13 +110,13 @@ main {
     height: fit-content;
 }
 
-.editIcons {
+.edit-icons {
     font-size: 1.5rem;
     opacity: .9;
     color: var(--primary-color-dark);
 }
 
-    .editIcons:hover {
+    .edit-icons:hover {
         color: var(--primary-color);
         font-weight: bold;
         opacity: 1;
@@ -151,13 +133,13 @@ main {
     background-color: var(--primary-color);
 }
 
-.socialicons {
+.social-icons {
     color: var(--secondary-color);
     opacity: .9;
     font-size: 2rem;
 }
 
-    .socialicons:hover {
+    .social-icons:hover {
         color: var(--secondary-color-light);
         opacity: 1;
         cursor: pointer;
@@ -187,7 +169,7 @@ main {
 
 /* X-Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-    .heroTitle {
+    .hero-title {
         font-size: 3.5rem;
     }
 }
