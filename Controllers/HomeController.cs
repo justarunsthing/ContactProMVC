@@ -18,11 +18,6 @@ namespace ContactProMVC.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         [Route("/Home/HandleError/{code:int}")]
         public IActionResult HandleError(int code)
         {
@@ -36,7 +31,6 @@ namespace ContactProMVC.Controllers
 
             return View("~/Views/Shared/CustomError.cshtml", customError);
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
