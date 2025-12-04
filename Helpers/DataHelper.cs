@@ -19,10 +19,10 @@ namespace ContactProMVC.Helpers
             await dbContext.Database.MigrateAsync();
 
             // Seed demo user
-            await SeedDemoUserAsync(userManager);
+            await SeedDemoUserAsync(userManager, dbContext);
         }
 
-        public static async Task SeedDemoUserAsync(UserManager<AppUser> userManager)
+        public static async Task SeedDemoUserAsync(UserManager<AppUser> userManager, ApplicationDbContext context)
         {
             var demoUser = new AppUser
             {
@@ -40,12 +40,38 @@ namespace ContactProMVC.Helpers
                 if (user == null )
                 {
                     await userManager.CreateAsync(demoUser, "Password1!");
+                    await SeedDemoCategories(context, demoUser);
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("************* ERROR *************");
                 Console.WriteLine("Error seeding demo user");
+                Console.WriteLine(ex.Message);
+                Console.WriteLine("**********************");
+
+                throw;
+            }
+        }
+
+        private static async Task SeedDemoCategories(ApplicationDbContext context, AppUser demoUser)
+        {
+            try
+            {
+                IList<Category> categories = new List<Category>()
+                {
+                    new() { Name = "Family",  AppUser = demoUser, AppUserId = demoUser.Id },
+                    new() { Name = "Friends",  AppUser = demoUser, AppUserId = demoUser.Id },
+                    new() { Name = "Work", AppUser = demoUser, AppUserId = demoUser.Id }
+                };
+
+                await context.AddRangeAsync(categories);
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("************* ERROR *************");
+                Console.WriteLine("Error seeding demo categories");
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("**********************");
 
