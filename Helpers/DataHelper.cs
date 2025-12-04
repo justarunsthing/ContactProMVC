@@ -41,6 +41,7 @@ namespace ContactProMVC.Helpers
                 {
                     await userManager.CreateAsync(demoUser, "Password1!");
                     await SeedDemoCategoriesAsync(context, demoUser);
+                    await SeedDemoContactsAsync(context, demoUser);
                 }
             }
             catch (Exception ex)
@@ -72,6 +73,45 @@ namespace ContactProMVC.Helpers
             {
                 Console.WriteLine("************* ERROR *************");
                 Console.WriteLine("Error seeding demo categories");
+                Console.WriteLine(ex.Message);
+                Console.WriteLine("**********************");
+
+                throw;
+            }
+        }
+
+        private static async Task SeedDemoContactsAsync(ApplicationDbContext context, AppUser demoUser)
+        {
+            try
+            {
+                var familyCategory = context.Categories.FirstOrDefault(c => c.Name == "Family" && c.AppUserId == demoUser.Id);
+                IList<Contact> contacts = new List<Contact>()
+                {
+                    new()
+                    {
+                        Categories = new List<Category> { familyCategory },
+                        FirstName = "Claudia",
+                        LastName = "Black",
+                        BirthDate = new DateTime(1972, 10, 11),
+                        Address1 = "14 Crescent Road",
+                        Address2 = "Flat 3",
+                        City = "London",
+                        PostCode = "NW3 5RT",
+                        Email = "claudia.black@contactpro.com",
+                        PhoneNumber = "07123456789",
+                        Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc),
+                        AppUser = demoUser,
+                        AppUserId = demoUser.Id
+                    }
+                };
+
+                await context.Contacts.AddRangeAsync(contacts);
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("************* ERROR *************");
+                Console.WriteLine("Error seeding demo contacts");
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("**********************");
 
