@@ -40,7 +40,7 @@ namespace ContactProMVC.Helpers
                 if (user == null )
                 {
                     await userManager.CreateAsync(demoUser, "Password1!");
-                    await SeedDemoCategories(context, demoUser);
+                    await SeedDemoCategoriesAsync(context, demoUser);
                 }
             }
             catch (Exception ex)
@@ -54,7 +54,7 @@ namespace ContactProMVC.Helpers
             }
         }
 
-        private static async Task SeedDemoCategories(ApplicationDbContext context, AppUser demoUser)
+        private static async Task SeedDemoCategoriesAsync(ApplicationDbContext context, AppUser demoUser)
         {
             try
             {
