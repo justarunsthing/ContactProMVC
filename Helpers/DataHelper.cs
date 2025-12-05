@@ -92,7 +92,7 @@ namespace ContactProMVC.Helpers
                 {
                     new()
                     {
-                        Categories = new List<Category> { familyCategory },
+                        Categories = new List<Category> { friendsCategory },
                         FirstName = "Claudia",
                         LastName = "Black",
                         BirthDate = DateTime.SpecifyKind(new DateTime(1972, 10, 11), DateTimeKind.Utc),
@@ -104,6 +104,41 @@ namespace ContactProMVC.Helpers
                         PhoneNumber = "07123456789",
                         Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc),
                         ImageData = LoadImageFile(Path.Combine("wwwroot", "img", "ClaudiaBlack.png")),
+                        ImageType = "image/png",
+                        AppUser = demoUser,
+                        AppUserId = demoUser.Id
+                    },
+                    new()
+                    {
+                        Categories = new List<Category> { workCategory },
+                        FirstName = "Courtenay",
+                        LastName = "Taylor",
+                        BirthDate = DateTime.SpecifyKind(new DateTime(1969, 07, 19), DateTimeKind.Utc),
+                        Address1 = "88 Willowbank Terrace",
+                        Address2 = "",
+                        City = "Glasgow",
+                        PostCode = "G3 7LH",
+                        Email = "courtenay.taylor@contactpro.com",
+                        PhoneNumber = "07988112233",
+                        Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc),
+                        ImageData = LoadImageFile(Path.Combine("wwwroot", "img", "CourtenayTaylor.png")),
+                        ImageType = "image/png",
+                        AppUser = demoUser,
+                        AppUserId = demoUser.Id
+                    },
+                    new()
+                    {
+                        FirstName = "Frank",
+                        LastName = "Langella",
+                        BirthDate = DateTime.SpecifyKind(new DateTime(1988, 01, 01), DateTimeKind.Utc),
+                        Address1 = "5 Kensington Court",
+                        Address2 = "",
+                        City = "London",
+                        PostCode = "W8 5FL",
+                        Email = "frank.langella@contactpro.com",
+                        PhoneNumber = "07709887744",
+                        Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc),
+                        ImageData = LoadImageFile(Path.Combine("wwwroot", "img", "FrankLangella.png")),
                         ImageType = "image/png",
                         AppUser = demoUser,
                         AppUserId = demoUser.Id
