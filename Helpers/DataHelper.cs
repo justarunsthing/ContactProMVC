@@ -85,6 +85,8 @@ namespace ContactProMVC.Helpers
             try
             {
                 var familyCategory = context.Categories.FirstOrDefault(c => c.Name == "Family" && c.AppUserId == demoUser.Id);
+                var workCategory = context.Categories.FirstOrDefault(c => c.Name == "Work" && c.AppUserId == demoUser.Id);
+                var friendsCategory = context.Categories.FirstOrDefault(c => c.Name == "Friends" && c.AppUserId == demoUser.Id);
 
                 IList<Contact> contacts = new List<Contact>()
                 {
