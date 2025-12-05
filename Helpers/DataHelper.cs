@@ -85,6 +85,7 @@ namespace ContactProMVC.Helpers
             try
             {
                 var familyCategory = context.Categories.FirstOrDefault(c => c.Name == "Family" && c.AppUserId == demoUser.Id);
+
                 IList<Contact> contacts = new List<Contact>()
                 {
                     new()
@@ -100,6 +101,8 @@ namespace ContactProMVC.Helpers
                         Email = "claudia.black@contactpro.com",
                         PhoneNumber = "07123456789",
                         Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc),
+                        ImageData = LoadImageFile(Path.Combine("wwwroot", "img", "ClaudiaBlack.png")),
+                        ImageType = "image/png",
                         AppUser = demoUser,
                         AppUserId = demoUser.Id
                     }
@@ -117,6 +120,11 @@ namespace ContactProMVC.Helpers
 
                 throw;
             }
+        }
+
+        private static byte[] LoadImageFile(string path)
+        {
+            return File.Exists(path) ? File.ReadAllBytes(path) : Array.Empty<byte>();
         }
     }
 }
