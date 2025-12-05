@@ -92,7 +92,7 @@ namespace ContactProMVC.Helpers
                         Categories = new List<Category> { familyCategory },
                         FirstName = "Claudia",
                         LastName = "Black",
-                        BirthDate = new DateTime(1972, 10, 11),
+                        BirthDate = DateTime.SpecifyKind(new DateTime(1972, 10, 11), DateTimeKind.Utc),
                         Address1 = "14 Crescent Road",
                         Address2 = "Flat 3",
                         City = "London",
