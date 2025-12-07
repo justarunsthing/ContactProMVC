@@ -19,7 +19,7 @@ namespace ContactProMVC.Helpers
             await dbContext.Database.MigrateAsync();
 
             // Seed demo user
-            await SeedDemoUserAsync(userManager, dbContext);
+            // await SeedDemoUserAsync(userManager, dbContext);
         }
 
         public static async Task SeedDemoUserAsync(UserManager<AppUser> userManager, ApplicationDbContext context)
