@@ -1,5 +1,6 @@
 ﻿using ContactProMVC.Data;
 using ContactProMVC.Models;
+using ContactProMVC.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 
@@ -18,9 +19,28 @@ namespace ContactProMVC.Controllers
             _signInManager = signInManager;
         }
 
-        public IActionResult DemoLogin()
+        [HttpGet("demo-login")]
+        public async Task<IActionResult> DemoLogin()
         {
-            return Ok();
+            if (!Request.Cookies.ContainsKey("DemoUserId"))
+            {
+                var demoId = Guid.NewGuid().ToString("N")[..12];
+
+                Response.Cookies.Append("DemoUserId", demoId, new CookieOptions
+                {
+                    Expires = DateTimeOffset.Now.AddMinutes(30),
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.Lax
+                });
+            }
+
+            var demoIdFromCookie = Request.Cookies["DemoUserId"];
+            var demoUser = await DataHelper.GetOrCreateDemoUserAsync(_userManager, _context, demoIdFromCookie!);
+
+            await _signInManager.SignInAsync(demoUser, isPersistent: false);
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }
