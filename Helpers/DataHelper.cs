@@ -55,6 +55,38 @@ namespace ContactProMVC.Helpers
             }
         }
 
+        public static async Task<AppUser> GetOrCreateDemoUserAsync(UserManager<AppUser> userManager, ApplicationDbContext context, string demoUserId)
+        {
+            var email = $"demouser-{demoUserId}@contactpro.com";
+            var user = await userManager.FindByEmailAsync(email);
+
+            if (user != null)
+            {
+                return user;
+            }
+
+            user = new AppUser
+            {
+                UserName = email,
+                Email = email,
+                FirstName = "Demo",
+                LastName = "User",
+                EmailConfirmed = true
+            };
+
+            var result = await userManager.CreateAsync(user, "Password1!");
+
+            if (!result.Succeeded)
+            {
+                throw new Exception(string.Join(", ", result.Errors.Select(e => e.Description)));
+            }
+
+            await SeedDemoCategoriesAsync(context, user);
+            await SeedDemoContactsAsync(context, user);
+
+            return user;
+        }
+
         private static async Task SeedDemoCategoriesAsync(ApplicationDbContext context, AppUser demoUser)
         {
             try
