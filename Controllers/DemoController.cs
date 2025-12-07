@@ -4,7 +4,7 @@ namespace ContactProMVC.Controllers
 {
     public class DemoController : Controller
     {
-        public IActionResult Demo()
+        public IActionResult DemoLogin()
         {
             return Ok();
         }
