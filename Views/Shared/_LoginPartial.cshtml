@@ -12,11 +12,24 @@
         <li class="nav-item">
             <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @appUser.FullName!</a>
         </li>
-        <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="btn btn-primary rounded-pill">Logout</button>
-            </form>
-        </li>
+
+        if (appUser.IsDemoUser)
+        {
+            <li class="nav-item">
+                <form class="form-inline" asp-controller="Demo" asp-action="Logout" method="post">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-primary rounded-pill">Logout</button>
+                </form>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="btn btn-primary rounded-pill">Logout</button>
+                </form>
+            </li>
+        }
     }
     else
     {

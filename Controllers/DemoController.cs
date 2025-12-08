@@ -45,5 +45,20 @@ namespace ContactProMVC.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            if (Request.Cookies.TryGetValue("DemoUserId", out var demoUserId))
+            {
+                await DataHelper.DeleteDemoUserAsync(_userManager, _context, demoUserId);
+                Response.Cookies.Delete("DemoUserId");
+            }
+
+            await _signInManager.SignOutAsync();
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
