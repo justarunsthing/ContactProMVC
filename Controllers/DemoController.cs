@@ -3,6 +3,7 @@ using ContactProMVC.Models;
 using ContactProMVC.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ContactProMVC.Controllers
 {
@@ -19,6 +20,7 @@ namespace ContactProMVC.Controllers
             _signInManager = signInManager;
         }
 
+        [AllowAnonymous]
         [HttpGet("demo-login")]
         public async Task<IActionResult> DemoLogin()
         {
