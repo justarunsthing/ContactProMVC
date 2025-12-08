@@ -24,21 +24,22 @@ namespace ContactProMVC.Controllers
         [HttpGet("demo-login")]
         public async Task<IActionResult> DemoLogin()
         {
-            if (!Request.Cookies.ContainsKey("DemoUserId"))
-            {
-                var demoId = Guid.NewGuid().ToString("N")[..12];
+            var demoUserId = Guid.NewGuid().ToString("N")[..12];
 
-                Response.Cookies.Append("DemoUserId", demoId, new CookieOptions
-                {
-                    Expires = DateTimeOffset.Now.AddMinutes(30),
-                    HttpOnly = true,
-                    Secure = true,
-                    SameSite = SameSiteMode.Lax
-                });
+            if (Request.Cookies.TryGetValue("DemoUserId", out var oldDemoId))
+            {
+                await DataHelper.DeleteDemoUserAsync(_userManager, _context, oldDemoId);
             }
 
-            var demoIdFromCookie = Request.Cookies["DemoUserId"];
-            var demoUser = await DataHelper.GetOrCreateDemoUserAsync(_userManager, _context, demoIdFromCookie!);
+            var demoUser = await DataHelper.CreateDemoUserAsync(_userManager, _context, demoUserId);
+
+            Response.Cookies.Append("DemoUserId", demoUserId, new CookieOptions
+            {
+                Expires = DateTimeOffset.Now.AddHours(1),
+                HttpOnly = true,
+                Secure = Request.IsHttps,
+                SameSite = SameSiteMode.Lax
+            });
 
             await _signInManager.SignInAsync(demoUser, isPersistent: false);
 

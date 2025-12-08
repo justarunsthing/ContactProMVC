@@ -88,7 +88,7 @@ namespace ContactProMVC.Helpers
             return user;
         }
 
-        private static async Task DeleteDemoUserAsync(UserManager<AppUser> userManager, ApplicationDbContext context, string demoUserId)
+        public static async Task DeleteDemoUserAsync(UserManager<AppUser> userManager, ApplicationDbContext context, string demoUserId)
         {
             var email = $"demouser-{demoUserId}@contactpro.com";
             var user = await userManager.FindByEmailAsync(email);
