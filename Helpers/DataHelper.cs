@@ -55,23 +55,24 @@ namespace ContactProMVC.Helpers
             }
         }
 
-        public static async Task<AppUser> GetOrCreateDemoUserAsync(UserManager<AppUser> userManager, ApplicationDbContext context, string demoUserId)
+        public static async Task<AppUser> CreateDemoUserAsync(UserManager<AppUser> userManager, ApplicationDbContext context, string demoUserId)
         {
             var email = $"demouser-{demoUserId}@contactpro.com";
-            var user = await userManager.FindByEmailAsync(email);
+            var existing = await userManager.FindByEmailAsync(email);
 
-            if (user != null)
+            if (existing != null)
             {
-                return user;
+                await DeleteDemoUserAsync(userManager, context, demoUserId);
             }
 
-            user = new AppUser
+            var user = new AppUser
             {
                 UserName = email,
                 Email = email,
                 FirstName = "Demo",
                 LastName = "User",
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                IsDemoUser = true
             };
 
             var result = await userManager.CreateAsync(user, "Password1!");
