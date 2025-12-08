@@ -87,6 +87,34 @@ namespace ContactProMVC.Helpers
             return user;
         }
 
+        private static async Task DeleteDemoUserAsync(UserManager<AppUser> userManager, ApplicationDbContext context, string demoUserId)
+        {
+            var email = $"demouser-{demoUserId}@contactpro.com";
+            var user = await userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                return;
+            }
+
+            var userId = user.Id;
+
+            await context.Database.ExecuteSqlRawAsync($@"
+                DELETE FROM ""CategoryContact""
+                WHERE ""CategoriesId"" IN (
+                    SELECT ""Id"" FROM ""Categories"" WHERE ""AppUserId"" = @p0
+                )
+                OR ""ContactsId"" IN (
+                    SELECT ""Id"" FROM ""Contacts"" WHERE ""AppUserId"" = @p0
+                );
+
+                DELETE FROM ""Contacts"" WHERE ""AppUserId"" = @p0;
+                DELETE FROM ""Categories"" WHERE ""AppUserId"" = @p0;
+            ", userId);
+
+            await userManager.DeleteAsync(user);
+        }
+
         private static async Task SeedDemoCategoriesAsync(ApplicationDbContext context, AppUser demoUser)
         {
             try
