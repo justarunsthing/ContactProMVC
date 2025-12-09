@@ -20,6 +20,9 @@ builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireCo
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("AppUser", policy => policy.RequireClaim("DemoUser", "false"));
+
 // Custom services
 // Scoped creates new instance everytime
 builder.Services.AddScoped<IImageService, ImageService>();
