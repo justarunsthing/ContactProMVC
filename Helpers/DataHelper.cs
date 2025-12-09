@@ -1,5 +1,6 @@
 ﻿using ContactProMVC.Data;
 using ContactProMVC.Models;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -43,6 +44,7 @@ namespace ContactProMVC.Helpers
                 throw new Exception(string.Join(", ", result.Errors.Select(e => e.Description)));
             }
 
+            await userManager.AddClaimAsync(user, new Claim("DemoUser", "true"));
             await SeedDemoCategoriesAsync(context, user);
             await SeedDemoContactsAsync(context, user);
 
