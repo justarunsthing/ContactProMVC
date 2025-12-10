@@ -7,12 +7,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using ContactProMVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ContactProMVC.Areas.Identity.Pages.Account.Manage
 {
+    [Authorize(Policy = "AppUser")]
     public class IndexModel : PageModel
     {
         private readonly UserManager<AppUser> _userManager;
